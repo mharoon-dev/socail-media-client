@@ -111,7 +111,7 @@ export default function Rightbar({ user }) {
                   src={
                     u.profilePicture
                       ? u.profilePicture
-                      : `${PF}person/noAvatar.png`
+                      : `${PF}person/noAvater.png`
                   }
                   alt=""
                   className="rightbarFollowingImg"
