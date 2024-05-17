@@ -5,54 +5,52 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import users from "../../dummyData.js";
+import { deployedUrl } from "../../utils/urls";
+
 const api = axios.create({
-  baseURL: "http://localhost:4000/api",
+  baseURL: deployedUrl,
 });
 
 export default function Rightbar({ user }) {
-  user && console.log(user);
   const { user: currentUser, dispatch } = useContext(AuthContext);
-  console.log(currentUser);
   const PF = import.meta.env.VITE_PUBLIC_FOLDER;
   const [friends, setFriends] = useState([]);
   const [followed, setFollowed] = useState(
-    (currentUser?.data?.followings.includes(user?._id) && true) || false
+    currentUser?.data?.followings?.map((u) => u._id).includes(user?._id) ? true : false
   );
 
   useEffect(() => {
     const getFriends = async () => {
-      try {
-        const friendList = await api.get("/users/friends/" + (await user._id));
-        console.log(friendList.data);
-        setFriends(friendList.data.data);
-      } catch (err) {
-        console.log(err);
+      if (user?._id) {
+        try {
+          const friendList = await api.get(`/users/friends/${user._id}`);
+          setFriends(friendList.data.data);
+        } catch (err) {
+          console.error(err);
+        }
       }
     };
     getFriends();
-  }, [user?._id]);
+  }, [user]);
 
   const handleFollow = async () => {
     try {
+      console.log(await followed);
       if (followed) {
-        console.log("unfollow chala");
         await api.put(`/users/${user._id}/unfollow`, {
-          userId: currentUser?.data?._id,
+          userId: currentUser.data._id,
         });
         dispatch({ type: "UNFOLLOW", payload: user._id });
-        // window.location.reload();
       } else {
-        console.log("follow chala");
         await api.put(`/users/${user._id}/follow`, {
-          userId: currentUser?.data?._id,
+          userId: currentUser.data._id,
         });
         dispatch({ type: "FOLLOW", payload: user._id });
-        // window.location.reload();
       }
+      setFollowed(!followed);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
-    setFollowed(!followed);
   };
 
   const HomeRightbar = () => {
@@ -78,12 +76,11 @@ export default function Rightbar({ user }) {
   const ProfileRightbar = () => {
     return (
       <>
-        {user.username !== currentUser?.data?.username && (
+        {user.username !== currentUser.data.username && (
           <button onClick={handleFollow} className="rightbarFollowButton">
             {followed ? "Unfollow" : "Follow"}
           </button>
         )}
-
         <h4 className="rightbarTitle">User Information</h4>
         <div className="rightbarInfo">
           <div className="rightbarInfoItem">
@@ -107,13 +104,14 @@ export default function Rightbar({ user }) {
             <Link
               to={`/profile/${u.username}`}
               style={{ textDecoration: "none" }}
+              key={u.id}
             >
-              <div className="rightbarFollowing" key={u.id}>
+              <div className="rightbarFollowing">
                 <img
                   src={
                     u.profilePicture
                       ? u.profilePicture
-                      : PF + "person/noAvater.png"
+                      : `${PF}person/noAvatar.png`
                   }
                   alt=""
                   className="rightbarFollowingImg"
@@ -129,7 +127,7 @@ export default function Rightbar({ user }) {
 
   return (
     <div className="rightbar">
-      <div className="rightbarWrappar">
+      <div className="rightbarWrapper">
         {user ? <ProfileRightbar /> : <HomeRightbar />}
       </div>
     </div>

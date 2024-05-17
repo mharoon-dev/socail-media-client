@@ -2,8 +2,9 @@ import { useRef } from "react";
 import axios from "axios";
 import "./Register.css";
 import { Link, useNavigate , } from "react-router-dom";
+import { deployedUrl } from "../../utils/urls";
 const api = axios.create({
-  baseURL: "http://localhost:4000/api",
+  baseURL: deployedUrl,
 });
 export { api };
 

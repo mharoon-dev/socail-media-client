@@ -8,9 +8,10 @@ import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 import useUploadImage from "../../CustomHook/useUploadImage";
 import ClearIcon from '@mui/icons-material/Clear';
+import { deployedUrl } from "../../utils/urls.jsx";
 
 const api = axios.create({
-  baseURL: "http://localhost:4000/api",
+  baseURL: deployedUrl,
 });
 export { api };
 

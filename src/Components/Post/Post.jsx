@@ -5,9 +5,10 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { format, render, cancel, register } from "timeago.js";
 import { AuthContext } from "../../context/AuthContext";
+import {deployedUrl} from "../../utils/urls";
 
 const api = axios.create({
-  baseURL: "http://localhost:4000/api",
+  baseURL:deployedUrl,
 });
 export { api };
 

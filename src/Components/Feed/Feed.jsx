@@ -4,9 +4,10 @@ import Share from "../Share/Share.jsx";
 import "./feed.css";
 import axios from "axios";
 import { AuthContext } from "../../context/AuthContext.jsx";
+import { deployedUrl } from "../../utils/urls.jsx";
 
 const api = axios.create({
-  baseURL: "http://localhost:4000/api",
+  baseURL: deployedUrl,
 });
 
 export default function Feed({ username }) {

@@ -7,22 +7,22 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import ClearIcon from "@mui/icons-material/Clear";
-import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
-import useUploadImage from "../../CustomHook/useUploadImage.jsx";
+import { deployedUrl } from "../../utils/urls.jsx";
+
 const api = axios.create({
-  baseURL: "http://localhost:4000/api",
+  baseURL: deployedUrl,
 });
 export { api };
 
 // http:localhost:4000/profile/username
 
-export default  function Profile() {
+export default function Profile() {
   const PF = import.meta.env.VITE_PUBLIC_FOLDER;
   const [user, setUser] = useState({});
   const username = useParams().username;
   const [profilePicDisplay, setProfilePicDisplay] = useState(false);
-  const [file , setFile] = useState()
-  const [loading ,setLoading] = useState(false)
+  const [file, setFile] = useState();
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -36,33 +36,32 @@ export default  function Profile() {
     fetchUser();
   }, [username]);
 
-    // // upload image
-    // const uploadImg = async (profileImage) => {
-    //   try {
-    //     console.log("profileImage", profileImage);
-    //     setLoading(!loading);
-    //     const imgUrl = await useUploadImage(profileImage, profileImage.name);
-    //     setFile(imgUrl);
-    //     console.log("file", file);
-    //     setFile((prevUrl) => {
-    //       console.log("Updated file state:", prevUrl); // This will log the updated state
-    //       setLoading(false);
-    //       return imgUrl;
-    //     });
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // };
+  // // upload image
+  // const uploadImg = async (profileImage) => {
+  //   try {
+  //     console.log("profileImage", profileImage);
+  //     setLoading(!loading);
+  //     const imgUrl = await useUploadImage(profileImage, profileImage.name);
+  //     setFile(imgUrl);
+  //     console.log("file", file);
+  //     setFile((prevUrl) => {
+  //       console.log("Updated file state:", prevUrl); // This will log the updated state
+  //       setLoading(false);
+  //       return imgUrl;
+  //     });
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
-    // useEffect(() => {
-    //   console.log(file + " ==>> file")
-    //   const saveImg = async () => {
-    //     const save = await api.put(`/users/${user._id}`, { profilePicture: file });
-    //     console.log(save)
-    //   }
-    //   saveImg()
-    // } , [file])
-
+  // useEffect(() => {
+  //   console.log(file + " ==>> file")
+  //   const saveImg = async () => {
+  //     const save = await api.put(`/users/${user._id}`, { profilePicture: file });
+  //     console.log(save)
+  //   }
+  //   saveImg()
+  // } , [file])
 
   return (
     <>
@@ -106,8 +105,6 @@ export default  function Profile() {
                   </label>
                 </button>
               </div> */}
-
-
             </div>
             <div className="profileInfo">
               <h4 className="profileInfoName">{user?.username}</h4>

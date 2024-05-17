@@ -1,7 +1,8 @@
 import axios from "axios";
+import { deployedUrl } from "./utils/urls";
 
 const api = axios.create({
-  baseURL: "http://localhost:4000/api",
+  baseURL: deployedUrl,
 });
 export { api };
 // haroon 

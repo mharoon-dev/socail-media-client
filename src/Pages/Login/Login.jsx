@@ -10,8 +10,6 @@ export default function Login() {
   const password = useRef();
   const { user, isFetching, error, dispatch } = useContext(AuthContext);
 
-  
-
   const handleClick = async (e) => {
     e.preventDefault();
     const callApi = await loginCall(
@@ -57,14 +55,13 @@ export default function Login() {
               {isFetching ? "loading" : "Log In"}
             </button>
             <span className="loginForgot">Forgot Password?</span>
-            <button className="loginRegisterButton">
-              <Link
-                to="/register"
+            <Link to="/register"
                 style={{ textDecoration: "none", color: "inherit" }}
-              >
+            >
+              <button className="loginRegisterButton">
                 Create a New Account
-              </Link>
-            </button>
+              </button>
+            </Link>
           </form>
         </div>
       </div>
