@@ -1,22 +1,22 @@
 const users = [
   {
-    profilePicture: "/person/1.jpg",
+    profilePicture: "person/1.jpg",
     username: "kamil",
   },
   {
-    profilePicture: "/person/2.jpg",
+    profilePicture: "person/2.jpg",
     username: "sami",
   },
   {
-    profilePicture: "/person/3.jpg",
+    profilePicture: "person/3.jpg",
     username: "samad",
   },
   {
-    profilePicture: "/person/4.jpg",
+    profilePicture: "person/4.jpg",
     username: "jamal",
   },
   {
-    profilePicture: "/person/5.jpg",
+    profilePicture: "person/5.jpg",
     username: "shahzad",
   },
 ];
